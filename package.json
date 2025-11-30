@@ -1,6 +1,6 @@
 {
   "name": "@harshmange44/parcelo",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Parcel out massive jobs with recursive binary splitting. Process at scale with automatic retry, distributed coordination, and fault tolerance.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -90,4 +90,3 @@
     "LICENSE"
   ]
 }
-
