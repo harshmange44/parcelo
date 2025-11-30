@@ -6,16 +6,19 @@ import { RangeTree } from '../src/core/rangeTree';
 import { NodeStore } from '../src/store/nodeStore';
 import { InMemoryStore } from '../src/store/inMemoryStore';
 import { NodeStatus } from '../src/types';
+import { NumberRangeAdapter } from '../src/adapters/rangeAdapter';
 
 describe('RangeTree', () => {
   let store: InMemoryStore;
   let nodeStore: NodeStore;
-  let rangeTree: RangeTree;
+  let rangeTree: RangeTree<number>;
+  let adapter: NumberRangeAdapter;
 
   beforeEach(() => {
     store = new InMemoryStore();
     nodeStore = new NodeStore(store);
-    rangeTree = new RangeTree(nodeStore, 10);
+    adapter = new NumberRangeAdapter();
+    rangeTree = new RangeTree(nodeStore, 10, adapter);
   });
 
   describe('createRoot', () => {
@@ -89,7 +92,7 @@ describe('RangeTree', () => {
 
     it('should use callback when provided', async () => {
       const shouldProcess = jest.fn(() => false);
-      const tree = new RangeTree(nodeStore, 10, shouldProcess);
+      const tree = new RangeTree(nodeStore, 10, adapter, shouldProcess);
       const root = await tree.createRoot('job1', { start: 0, end: 100 });
       const result = await tree.shouldProcessNode(root);
 
@@ -99,7 +102,7 @@ describe('RangeTree', () => {
 
     it('should pass correct flags to callback', async () => {
       const shouldProcess = jest.fn(() => true);
-      const tree = new RangeTree(nodeStore, 10, shouldProcess);
+      const tree = new RangeTree(nodeStore, 10, adapter, shouldProcess);
       const root = await tree.createRoot('job1', { start: 0, end: 100 });
       await tree.shouldProcessNode(root);
 
@@ -155,16 +158,16 @@ describe('RangeTree', () => {
 
   describe('static methods', () => {
     it('should calculate range size', () => {
-      expect(RangeTree.rangeSize({ start: 0, end: 100 })).toBe(100);
-      expect(RangeTree.rangeSize({ start: 50, end: 75 })).toBe(25);
+      expect(RangeTree.rangeSize({ start: 0, end: 100 }, adapter)).toBe(100);
+      expect(RangeTree.rangeSize({ start: 50, end: 75 }, adapter)).toBe(25);
     });
 
     it('should validate ranges', () => {
-      expect(RangeTree.isValidRange({ start: 0, end: 100 })).toBe(true);
-      expect(RangeTree.isValidRange({ start: 100, end: 0 })).toBe(false);
-      expect(RangeTree.isValidRange({ start: 0, end: 0 })).toBe(false);
-      expect(RangeTree.isValidRange({ start: NaN, end: 100 })).toBe(false);
-      expect(RangeTree.isValidRange({ start: 0, end: Infinity })).toBe(false);
+      expect(RangeTree.isValidRange({ start: 0, end: 100 }, adapter)).toBe(true);
+      expect(RangeTree.isValidRange({ start: 100, end: 0 }, adapter)).toBe(false);
+      expect(RangeTree.isValidRange({ start: 0, end: 0 }, adapter)).toBe(false);
+      expect(RangeTree.isValidRange({ start: NaN, end: 100 }, adapter)).toBe(false);
+      expect(RangeTree.isValidRange({ start: 0, end: Infinity }, adapter)).toBe(false);
     });
   });
 });

@@ -333,5 +333,6 @@ export interface PendingQueueItem {
   depth: number;
   priority: number;
   addedAt: number;
+  sequence: number;  // For FIFO ordering when addedAt is the same
 }
 
