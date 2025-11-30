@@ -1,6 +1,6 @@
 {
   "name": "@harshmange44/parcelo",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Parcel out massive jobs with recursive binary splitting. Process at scale with automatic retry, distributed coordination, and fault tolerance.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -18,7 +18,7 @@
     "test:stale": "ts-node tests/stale-node-recovery-test.ts",
     "test:failure": "ts-node tests/failure-tolerance-test.ts",
     "test:load": "ts-node tests/load-test.ts",
-    "prepublishOnly": "npm run build"
+    "benchmark:production": "ts-node benchmarks/production-benchmark.ts"
   },
   "keywords": [
     "parcelo",

@@ -291,6 +291,10 @@ export class InMemoryScheduler<T = number> {
         // Small delay to prevent tight loop
         await this.sleep(10);
       } catch (error) {
+        if (error instanceof Error && error.message.includes('Connection is closed')) {
+          // Connection was closed, exit loop gracefully
+          break;
+        }
         console.error(`Error in processing loop for job ${jobId}:`, error);
         await this.handleJobError(jobId, error);
         break;
@@ -511,9 +515,20 @@ export class InMemoryScheduler<T = number> {
    * Handle job error
    */
   private async handleJobError(jobId: string, error: unknown): Promise<void> {
-    const errorMsg = error instanceof Error ? error.message : String(error);
-    await this.jobStore.updateStatus(jobId, JobStatus.FAILED);
-    await this.eventEmitter.emit(SchedulerEvent.JOB_FAILED, { jobId, error: errorMsg });
+    if (error instanceof Error && error.message.includes('Connection is closed')) {
+      return;
+    }
+    
+    try {
+      const errorMsg = error instanceof Error ? error.message : String(error);
+      await this.jobStore.updateStatus(jobId, JobStatus.FAILED);
+      await this.eventEmitter.emit(SchedulerEvent.JOB_FAILED, { jobId, error: errorMsg });
+    } catch (updateError) {
+      // Ignore errors if connection is already closed
+      if (!(updateError instanceof Error && updateError.message.includes('Connection is closed'))) {
+        throw updateError;
+      }
+    }
   }
 
   /**
