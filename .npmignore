@@ -1,0 +1,16 @@
+# Source files
+src/
+tests/
+examples/
+
+# Config files
+tsconfig.json
+jest.config.js
+.gitignore
+
+# Development files
+*.test.ts
+*.spec.ts
+
+# Documentation (README is included by default)
+

@@ -1,0 +1,93 @@
+{
+  "name": "parcelo",
+  "version": "1.0.0",
+  "description": "Parcel out massive jobs with recursive binary splitting. Process at scale with automatic retry, distributed coordination, and fault tolerance.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "example": "ts-node examples/simpleRangeJob.ts",
+    "example:inmemory": "ts-node examples/simpleRangeJob.ts",
+    "example:distributed": "ts-node examples/distributedExample.ts",
+    "example:bigint": "ts-node examples/bigIntRangeExample.ts",
+    "example:date": "ts-node examples/dateRangeExample.ts",
+    "example:custom": "ts-node examples/customTypeExample.ts",
+    "test:comprehensive": "ts-node tests/comprehensive-distributed-test.ts",
+    "test:stale": "ts-node tests/stale-node-recovery-test.ts",
+    "test:failure": "ts-node tests/failure-tolerance-test.ts",
+    "test:load": "ts-node tests/load-test.ts",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "parcelo",
+    "job-scheduler",
+    "batch-processing",
+    "distributed-jobs",
+    "worker-pool",
+    "binary-split",
+    "recursive-split",
+    "chunk-processing",
+    "workload-distribution",
+    "job",
+    "queue",
+    "scheduler",
+    "batch",
+    "bulk",
+    "distributed",
+    "worker",
+    "parallel",
+    "concurrent",
+    "split",
+    "partition",
+    "chunk",
+    "scale",
+    "redis",
+    "bullmq",
+    "background-jobs",
+    "task-queue",
+    "data-processing",
+    "etl",
+    "range",
+    "fault-tolerant",
+    "reliable",
+    "retry"
+  ],
+  "author": {
+    "name": "Harsh Mange",
+    "email": "harshmange44@gmail.com",
+    "url": "https://github.com/harshmange44"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/harshmange/parcelo.git"
+  },
+  "bugs": {
+    "url": "https://github.com/harshmange/parcelo/issues"
+  },
+  "homepage": "https://github.com/harshmange/parcelo#readme",
+  "dependencies": {
+    "bullmq": "^5.1.0",
+    "ioredis": "^5.3.2",
+    "eventemitter3": "^5.0.1"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.0",
+    "@types/node": "^20.0.0",
+    "jest": "^29.5.0",
+    "ts-jest": "^29.1.0",
+    "ts-node": "^10.9.0",
+    "typescript": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ]
+}
+
