@@ -1,5 +1,11 @@
 # parcelo 📦
 
+[![npm version](https://img.shields.io/npm/v/@harshmange44/parcelo.svg)](https://www.npmjs.com/package/@harshmange44/parcelo)
+[![npm downloads](https://img.shields.io/npm/dm/@harshmange44/parcelo.svg)](https://www.npmjs.com/package/@harshmange44/parcelo)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue.svg)](https://www.typescriptlang.org/)
+[![Node.js Version](https://img.shields.io/node/v/@harshmange44/parcelo.svg)](https://nodejs.org/)
+
 > Parcel out massive jobs with recursive binary splitting. Process at scale with automatic retry, distributed coordination, and fault tolerance.
 
 A production-ready TypeScript library for splitting large workloads into manageable chunks and processing them at scale.
