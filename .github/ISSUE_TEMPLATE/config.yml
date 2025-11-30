@@ -1,0 +1,9 @@
+blank_issues_enabled: true
+contact_links:
+  - name: 📚 Documentation
+    url: https://github.com/harshmange44/parcelo#readme
+    about: Check out the documentation for guides and examples
+  - name: 💬 Discussions
+    url: https://github.com/harshmange44/parcelo/discussions
+    about: Ask questions and discuss ideas with the community
+

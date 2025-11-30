@@ -1,0 +1,59 @@
+name: ❓ Question
+description: Ask a question about using parcelo
+title: "[Question]: "
+labels: ["question"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Have a question? We're here to help!
+
+  - type: textarea
+    id: question
+    attributes:
+      label: Your Question
+      description: What would you like to know?
+      placeholder: How do I...?
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: What are you trying to accomplish?
+      placeholder: I'm trying to...
+    validations:
+      required: false
+
+  - type: textarea
+    id: code
+    attributes:
+      label: Relevant Code
+      description: If applicable, share the code you're working with
+      render: typescript
+      placeholder: |
+        import { RangeScheduler } from '@harshmange44/parcelo';
+        
+        // Your code here
+    validations:
+      required: false
+
+  - type: textarea
+    id: research
+    attributes:
+      label: What Have You Tried?
+      description: Have you checked the documentation or tried any solutions?
+      placeholder: I've looked at...
+    validations:
+      required: false
+
+  - type: input
+    id: version
+    attributes:
+      label: parcelo Version
+      description: What version are you using?
+      placeholder: "1.0.0"
+    validations:
+      required: false
+
