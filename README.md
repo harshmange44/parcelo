@@ -18,7 +18,7 @@ A production-ready TypeScript library for splitting large workloads into managea
 ## Installation
 
 ```bash
-npm install parcelo
+npm install @harshmange44/parcelo
 ```
 
 ## Quick Start
@@ -26,7 +26,7 @@ npm install parcelo
 ### Development / Testing (Simple)
 
 ```typescript
-import { InMemoryScheduler } from 'parcelo';
+import { InMemoryScheduler } from '@harshmange44/parcelo';
 
 const scheduler = new InMemoryScheduler();
 
@@ -44,7 +44,7 @@ await scheduler.startJob(jobId);
 ### Production (Recommended)
 
 ```typescript
-import { RangeScheduler } from 'parcelo';
+import { RangeScheduler } from '@harshmange44/parcelo';
 
 const scheduler = new RangeScheduler({
   redisUrl: 'redis://localhost:6379',
