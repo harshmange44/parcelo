@@ -6,18 +6,18 @@ import { RangeTree } from '../src/core/rangeTree';
 import { NodeStore } from '../src/store/nodeStore';
 import { InMemoryStore } from '../src/store/inMemoryStore';
 import { NodeStatus } from '../src/types';
-import { NumberRangeAdapter } from '../src/adapters/rangeAdapter';
+import { RangeAdapter, NumberRangeAdapter } from '../src/adapters/rangeAdapter';
 
 describe('RangeTree', () => {
   let store: InMemoryStore;
   let nodeStore: NodeStore;
   let rangeTree: RangeTree<number>;
-  let adapter: NumberRangeAdapter;
+  let adapter: RangeAdapter<number>;
 
   beforeEach(() => {
     store = new InMemoryStore();
     nodeStore = new NodeStore(store);
-    adapter = new NumberRangeAdapter();
+    adapter = NumberRangeAdapter;
     rangeTree = new RangeTree(nodeStore, 10, adapter);
   });
 

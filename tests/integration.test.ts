@@ -29,16 +29,16 @@ describe('Integration Tests', () => {
         },
       });
 
-      // Wait for completion
-      await new Promise<void>((resolve) => {
+      // Set up completion promise BEFORE starting
+      const completionPromise = new Promise<void>((resolve) => {
         scheduler.on(SchedulerEvent.JOB_COMPLETED, () => resolve());
         scheduler.on(SchedulerEvent.JOB_FAILED, () => resolve());
       });
 
       await scheduler.startJob(jobId);
-
-      // Wait a bit for processing
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      // Wait for completion
+      await completionPromise;
 
       const job = await scheduler.getJob(jobId);
       const stats = await scheduler.getStats(jobId);
@@ -172,10 +172,9 @@ describe('Integration Tests', () => {
       const jobId = await scheduler.createJob({
         range: { start: 0, end: 50 },
         maxRangeSize: 10,
-        work: async (range) => {
-          if (range.start === 20) {
-            throw new Error('Simulated error');
-          }
+        work: async () => {
+          // Always throw error for this test
+          throw new Error('Simulated error');
         },
       });
 

@@ -58,7 +58,13 @@ export const NumberRangeAdapter: RangeAdapter<number> = {
 
   midpoint: (start, end) => Math.floor((start + end) / 2),
 
-  isValid: (range) => range.start < range.end,
+  isValid: (range) => {
+    return (
+      Number.isFinite(range.start) &&
+      Number.isFinite(range.end) &&
+      range.start < range.end
+    );
+  },
 
   toString: (value) => value.toString(),
 
