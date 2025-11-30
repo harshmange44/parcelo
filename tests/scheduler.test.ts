@@ -3,7 +3,7 @@
  */
 
 import { InMemoryScheduler } from '../src/core/inMemoryScheduler';
-import { JobStatus, NodeStatus, SchedulerEvent } from '../src/types';
+import { JobStatus, SchedulerEvent } from '../src/types';
 
 describe('InMemoryScheduler', () => {
   let scheduler: InMemoryScheduler;
@@ -305,7 +305,9 @@ describe('InMemoryScheduler', () => {
         maxRangeSize: 10,
         work: async () => {},
       });
-
+      
+      // Use jobId to avoid unused variable warning
+      expect(jobId).toBeDefined();
       expect(listener).toHaveBeenCalled();
     });
 

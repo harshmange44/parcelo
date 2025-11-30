@@ -12,10 +12,12 @@ import { now } from '../utils/time';
 export class PendingQueue {
   private heap: PendingQueueItem[];
   private itemMap: Map<string, number>; // nodeId -> heap index
+  private sequenceCounter: number;
 
   constructor() {
     this.heap = [];
     this.itemMap = new Map();
+    this.sequenceCounter = 0;
   }
 
   /**
@@ -33,6 +35,7 @@ export class PendingQueue {
       depth,
       priority: this.calculatePriority(depth),
       addedAt: now(),
+      sequence: this.sequenceCounter++,
     };
 
     // Add to end and bubble up
@@ -223,19 +226,22 @@ export class PendingQueue {
   }
 
   /**
-   * Compare two items (returns negative if i has higher priority)
+   * Compare two items (returns negative if i has higher priority than j)
+   * Min-heap: smaller value = higher priority = should be closer to root
    */
   private compare(i: number, j: number): number {
     const itemI = this.heap[i];
     const itemJ = this.heap[j];
 
-    // Higher depth = higher priority (lower value in min-heap)
+    // Higher depth = higher priority
+    // We want deeper nodes first, so invert the comparison
     if (itemI.depth !== itemJ.depth) {
-      return itemJ.depth - itemI.depth; // Inverted for max-heap behavior on depth
+      return itemJ.depth - itemI.depth; // Deeper nodes have higher priority
     }
 
-    // Same depth: FIFO (earlier addedAt = higher priority)
-    return itemI.addedAt - itemJ.addedAt;
+    // Same depth: FIFO (use sequence number for deterministic ordering)
+    // Lower sequence number = added earlier = higher priority
+    return itemI.sequence - itemJ.sequence;
   }
 
   /**

@@ -28,9 +28,19 @@ describe('PendingQueue', () => {
       queue.enqueue('node2', 'job1', 0);
       queue.enqueue('node3', 'job1', 0);
 
-      expect(queue.dequeue()!.nodeId).toBe('node1');
-      expect(queue.dequeue()!.nodeId).toBe('node2');
-      expect(queue.dequeue()!.nodeId).toBe('node3');
+      const first = queue.dequeue();
+      const second = queue.dequeue();
+      const third = queue.dequeue();
+      
+      // Should dequeue in FIFO order
+      expect(first!.nodeId).toBe('node1');
+      expect(second!.nodeId).toBe('node2');
+      expect(third!.nodeId).toBe('node3');
+      
+      // Verify they all had the same depth
+      expect(first!.depth).toBe(0);
+      expect(second!.depth).toBe(0);
+      expect(third!.depth).toBe(0);
     });
 
     it('should prioritize deeper nodes', () => {

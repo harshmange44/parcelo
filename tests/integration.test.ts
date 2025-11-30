@@ -13,9 +13,9 @@ describe('Integration Tests', () => {
       
       // Track events
       const events: string[] = [];
-      scheduler.on(SchedulerEvent.JOB_CREATED, () => events.push('created'));
-      scheduler.on(SchedulerEvent.JOB_STARTED, () => events.push('started'));
-      scheduler.on(SchedulerEvent.JOB_COMPLETED, () => events.push('completed'));
+      scheduler.on(SchedulerEvent.JOB_CREATED, () => { events.push('created'); return undefined; });
+      scheduler.on(SchedulerEvent.JOB_STARTED, () => { events.push('started'); return undefined; });
+      scheduler.on(SchedulerEvent.JOB_COMPLETED, () => { events.push('completed'); return undefined; });
 
       const jobId = await scheduler.createJob({
         range: { start: 0, end: 1000 },
